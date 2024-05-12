@@ -13,7 +13,7 @@ public class ServerList
                 "map1",
                 12,
                 50,
-                new List<Player> { new("Player1", false), new("Player2", false) }
+                new List<Player> { new("Sergiu", false), new("Player2", false) }
             )
         );
         _serverData.Add(

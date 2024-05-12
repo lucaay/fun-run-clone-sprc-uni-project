@@ -25,13 +25,25 @@ public partial class LobbyUiManager : Node
     private HBoxContainer serverEntryTemplate;
 
     private ServerList serverList;
+    private Player localPlayer;
 
     // Ensure nodes are found after the scene is fully loaded
     public override void _Ready()
     {
-        playerListPanel.Visible = false; // Hide player list panel initially
-        serverListPanel.Visible = true; // Show server list panel initially
-        GetTree().CreateTimer(0.1f).Timeout += InitializeUI; // Defer initialization
+        if (PlayerManager.Instance.CurrentPlayer != null)
+        {
+            var player = PlayerManager.Instance.CurrentPlayer;
+            // Use the player data here
+            localPlayer = player;
+
+            playerListPanel.Visible = false; // Hide player list panel initially
+            serverListPanel.Visible = true; // Show server list panel initially
+            GetTree().CreateTimer(0.1f).Timeout += InitializeUI; // Defer initialization
+        }
+        else
+        {
+            GetTree().ChangeSceneToFile("res://scenes/MainMenu.tscn");
+        }
     }
 
     private void InitializeUI()
@@ -170,7 +182,8 @@ public partial class LobbyUiManager : Node
 
         var readyButton = playerEntry.GetNode<Button>("ready_btn");
         readyButton.Text = player.ready ? "Unready" : "Ready";
-        readyButton.Disabled = false;
+        //disable ready button if player is not the local player
+        readyButton.Disabled = player.name != localPlayer.name;
         readyButton.Pressed += () => _on_ready_btn_pressed(player, players);
 
         playerListContainer.AddChild(playerEntry);
