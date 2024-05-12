@@ -7,9 +7,19 @@ public class ServerList
     // Constructor (Initialize with some sample data)
     public ServerList()
     {
-        _serverData.Add(new ServerData("My Awesome Server", "map1", 12, 50));
-        _serverData.Add(new ServerData("Beginner's Haven", "map2", 5, 100));
-        _serverData.Add(new ServerData("Pro Only!", "map3", 2, 25));
+        _serverData.Add(
+            new ServerData(
+                "My Awesome Server",
+                "map1",
+                12,
+                50,
+                new List<string> { "Player1", "Player2" }
+            )
+        );
+        _serverData.Add(
+            new ServerData("Beginner's Haven", "map2", 5, 100, new List<string> { "Player3" })
+        );
+        _serverData.Add(new ServerData("Pro Only!", "map3", 2, 25, new List<string> { "Player4" }));
     }
 
     // Property to access the server data list

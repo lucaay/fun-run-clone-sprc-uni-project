@@ -5,14 +5,16 @@
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." node_paths=PackedStringArray("serverListPanel", "playerListPanel", "serverListContainer", "serverEntryTemplate")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1153.0
 offset_bottom = 650.0
 script = ExtResource("1_334l3")
-serverListContainerPath = NodePath("ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer")
-serverEntryTemplatePath = NodePath("ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer/server_container")
+serverListPanel = NodePath("ServerListPanel")
+playerListPanel = NodePath("PlayerListPanel")
+serverListContainer = NodePath("ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer")
+serverEntryTemplate = NodePath("ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer/server_container")
 
 [node name="TextureRect" type="TextureRect" parent="Control"]
 layout_mode = 0
@@ -28,6 +30,77 @@ offset_top = 23.0
 offset_right = 141.0
 offset_bottom = 55.0
 text = "Back"
+
+[node name="PlayerListPanel" type="VBoxContainer" parent="Control"]
+visible = false
+layout_mode = 2
+offset_left = 167.0
+offset_top = 80.0
+offset_right = 1031.0
+offset_bottom = 567.0
+
+[node name="Panel" type="Panel" parent="Control/PlayerListPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerScrollContainer" type="ScrollContainer" parent="Control/PlayerListPanel/Panel"]
+layout_mode = 0
+offset_right = 864.0
+offset_bottom = 487.0
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="PlayerScrollVBoxContainer" type="VBoxContainer" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="PlayerConnectedServerScrollVBoxContainer" type="VBoxContainer" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="player_server_container" type="HBoxContainer" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/PlayerConnectedServerScrollVBoxContainer"]
+layout_mode = 2
+
+[node name="server_name_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/PlayerConnectedServerScrollVBoxContainer/player_server_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Server Name"
+
+[node name="map_name_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/PlayerConnectedServerScrollVBoxContainer/player_server_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Map Name"
+
+[node name="player_count_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/PlayerConnectedServerScrollVBoxContainer/player_server_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Players"
+
+[node name="ping_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/PlayerConnectedServerScrollVBoxContainer/player_server_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ping"
+
+[node name="player_container" type="HBoxContainer" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer"]
+layout_mode = 2
+
+[node name="player_name_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Player Name"
+
+[node name="ready_status_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ready Status"
+
+[node name="ready-btn" type="Button" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_container"]
+layout_mode = 2
+disabled = true
+text = "Ready"
 
 [node name="ServerListPanel" type="VBoxContainer" parent="Control"]
 layout_mode = 0

@@ -3,13 +3,18 @@ using Godot;
 
 public partial class LobbyUiManager : Node
 {
-    [Export] // Allows setting the path in the Godot editor
-    private NodePath serverListContainerPath;
+    [Export]
+    private VBoxContainer serverListPanel;
 
     [Export]
-    private NodePath serverEntryTemplatePath;
+    private VBoxContainer playerListPanel;
+
+    [Export] // Allows setting the path in the Godot editor
     private VBoxContainer serverListContainer;
+
+    [Export]
     private HBoxContainer serverEntryTemplate;
+
     private ServerList serverList;
 
     // Ensure nodes are found after the scene is fully loaded
@@ -20,42 +25,78 @@ public partial class LobbyUiManager : Node
 
     private void InitializeUI()
     {
-        // get current node path
-        var rootNode = GetPath();
-        serverListContainer = GetNode<VBoxContainer>(
-            Utils.CombinePaths(rootNode, serverListContainerPath)
-        );
-        serverEntryTemplate = serverListContainer.GetNode<HBoxContainer>(
-            Utils.CombinePaths(rootNode, serverEntryTemplatePath)
-        );
-
         serverList = new ServerList(); // Initialize with sample data
-        ServerListUiActions.PopulateServerList(
-            serverList,
-            serverListContainer,
-            serverEntryTemplate
-        );
+        PopulateServerList();
     }
 
-    // Handle "Play" button click (Connect to "pressed" signal in the editor)
+    public void PopulateServerList()
+    {
+        GD.Print("Populating server list. Server count:", serverList.Servers.Count); // Debugging
+
+        // Safety check
+        if (serverListContainer == null || serverEntryTemplate == null)
+        {
+            GD.PrintErr(
+                "serverListContainer or serverEntryTemplate is null. Check your scene tree."
+            );
+            return;
+        }
+
+        // Clear existing entries (except the template) efficiently
+        for (int i = serverListContainer.GetChildCount() - 1; i >= 0; i--)
+        {
+            var child = serverListContainer.GetChild(i);
+            if (child != serverEntryTemplate)
+                child.QueueFree();
+        }
+
+        // Add new entries
+        foreach (var serverData in serverList.Servers) // Directly use the serverData variable here
+        {
+            AddServerEntry(serverData); // Pass the serverData to the AddServerEntry method
+        }
+    }
+
+    private void AddServerEntry(ServerData serverData)
+    {
+        var serverEntry = serverEntryTemplate.Duplicate() as HBoxContainer;
+        serverEntry.Visible = true;
+        var serverNameLabel = serverEntry.GetNode<Label>("server_name_label");
+        serverNameLabel.Text = serverData.server_name;
+
+        var mapNameLabel = serverEntry.GetNode<Label>("map_name_label");
+        mapNameLabel.Text = serverData.map_name;
+
+        var playerCountLabel = serverEntry.GetNode<Label>("player_count_label");
+        playerCountLabel.Text = serverData.player_count.ToString();
+
+        var pingLabel = serverEntry.GetNode<Label>("ping_label");
+        pingLabel.Text = $"{serverData.ping} ms";
+
+        var connectButton = serverEntry.GetNode<Button>("connect");
+        connectButton.Disabled = false;
+
+        serverListContainer.AddChild(serverEntry);
+    }
+
+    // Handle "Back" button click
     private void _on_back_btn_pressed()
     {
-        GetTree().ChangeSceneToFile("res://scenes/MainMenu.tscn");
+        if (serverListPanel.Visible == true)
+        {
+            GetTree().ChangeSceneToFile("res://scenes/MainMenu.tscn");
+        }
+        else
+        {
+            serverListPanel.Visible = true;
+            playerListPanel.Visible = false;
+        }
     }
 
-    // Network Event Handlers
-    private void OnConnectedToServer()
+    // Handle "connect" button click
+    private void _on_connect_btn_pressed()
     {
-        GD.Print("Connected to server!");
-    }
-
-    private void OnConnectionFailed()
-    {
-        GD.PrintErr("Failed to connect to server.");
-    }
-
-    private void OnServerDisconnected()
-    {
-        GD.PrintErr("Disconnected from server.");
+        serverListPanel.Visible = false;
+        playerListPanel.Visible = true;
     }
 }
