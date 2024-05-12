@@ -6,21 +6,23 @@ public class ServerData
     public string server_name { get; set; }
     public string map_name { get; set; }
     public int player_count { get; set; }
+
     public int ping { get; set; }
-    public List<string> player_names { get; set; }
+
+    public List<Player> players { get; set; } // List to hold multiple players
 
     public ServerData(
         string serverName,
         string mapName,
         int playerCount,
         int pingArg,
-        List<string> playerNames
+        List<Player> playersList = null // Optional player list in the constructor
     )
     {
         server_name = serverName;
         map_name = mapName;
         player_count = playerCount;
         ping = pingArg;
-        player_names = playerNames;
+        players = playersList ?? new List<Player>(); // Initialize if null
     }
 }

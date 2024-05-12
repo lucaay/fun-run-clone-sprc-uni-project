@@ -5,7 +5,7 @@
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Control" type="Control" parent="." node_paths=PackedStringArray("serverListPanel", "playerListPanel", "playerServerInfo", "serverListContainer", "serverEntryTemplate")]
+[node name="Control" type="Control" parent="." node_paths=PackedStringArray("serverListPanel", "playerListPanel", "playerServerInfo", "playerListContainer", "playerEntryTemplate", "serverListContainer", "serverEntryTemplate")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1153.0
@@ -13,7 +13,9 @@ offset_bottom = 650.0
 script = ExtResource("1_334l3")
 serverListPanel = NodePath("ServerListPanel")
 playerListPanel = NodePath("PlayerListPanel")
-playerServerInfo = NodePath("PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/PlayerConnectedServerScrollVBoxContainer/player_server_container")
+playerServerInfo = NodePath("PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_server_container")
+playerListContainer = NodePath("PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer")
+playerEntryTemplate = NodePath("PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_container")
 serverListContainer = NodePath("ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer")
 serverEntryTemplate = NodePath("ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer/server_container")
 
@@ -56,33 +58,28 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="PlayerConnectedServerScrollVBoxContainer" type="VBoxContainer" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 2
-
-[node name="player_server_container" type="HBoxContainer" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/PlayerConnectedServerScrollVBoxContainer"]
+[node name="player_server_container" type="HBoxContainer" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer"]
 layout_mode = 2
 
-[node name="server_name_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/PlayerConnectedServerScrollVBoxContainer/player_server_container"]
+[node name="server_name_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_server_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Server Name"
 horizontal_alignment = 1
 
-[node name="map_name_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/PlayerConnectedServerScrollVBoxContainer/player_server_container"]
+[node name="map_name_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_server_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Map Name"
 horizontal_alignment = 1
 
-[node name="player_count_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/PlayerConnectedServerScrollVBoxContainer/player_server_container"]
+[node name="player_count_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_server_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Players"
 horizontal_alignment = 1
 
-[node name="ping_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/PlayerConnectedServerScrollVBoxContainer/player_server_container"]
+[node name="ping_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_server_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Ping"
@@ -95,13 +92,15 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Player Name"
+horizontal_alignment = 1
 
 [node name="ready_status_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Ready Status"
+horizontal_alignment = 1
 
-[node name="ready-btn" type="Button" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_container"]
+[node name="ready_btn" type="Button" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_container"]
 layout_mode = 2
 disabled = true
 text = "Ready"
