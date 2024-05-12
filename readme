@@ -1,0 +1,17 @@
+# University project for the Software systems for computer networks course
+
+Steps to run the project:
+
+1. Clone the repository
+2. Open the project in Godot Engine 4 (<https://godotengine.org/>) with C# support
+3. Run the project
+
+Steps to run the game:
+
+1. Clone the repository
+2. Start the server by running the server.exe file
+3. Start the client by running the client.exe file
+4. Join a server from the list
+5. Enjoy playing the game
+
+Dunarea de Jos University of Galati
