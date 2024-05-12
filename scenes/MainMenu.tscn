@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://l7vm51cacnqd"]
+
+[ext_resource type="Script" path="res://scripts/MainMenuUiManager.cs" id="1_bgeyl"]
+[ext_resource type="Texture2D" uid="uid://curo02hymabe8" path="res://assets/background_main_menu.png" id="2_d4obs"]
+
+[node name="MainMenuNode" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1153.0
+offset_bottom = 650.0
+script = ExtResource("1_bgeyl")
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 650.0
+texture = ExtResource("2_d4obs")
+expand_mode = 2
+
+[node name="PlayBtn" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 542.0
+offset_top = 294.0
+offset_right = 621.0
+offset_bottom = 325.0
+text = "Play"
+
+[node name="ExitBtn" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 1017.0
+offset_top = 593.0
+offset_right = 1135.0
+offset_bottom = 625.0
+text = "Exit"
+
+[connection signal="pressed" from="Control/PlayBtn" to="Control" method="_on_play_btn_pressed"]
+[connection signal="pressed" from="Control/ExitBtn" to="Control" method="_on_exit_btn_pressed"]
