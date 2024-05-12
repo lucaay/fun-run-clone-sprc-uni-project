@@ -9,6 +9,9 @@ public partial class LobbyUiManager : Node
     [Export]
     private VBoxContainer playerListPanel;
 
+    [Export]
+    private HBoxContainer playerServerInfo;
+
     [Export] // Allows setting the path in the Godot editor
     private VBoxContainer serverListContainer;
 
@@ -20,6 +23,8 @@ public partial class LobbyUiManager : Node
     // Ensure nodes are found after the scene is fully loaded
     public override void _Ready()
     {
+        playerListPanel.Visible = false; // Hide player list panel initially
+        serverListPanel.Visible = true; // Show server list panel initially
         GetTree().CreateTimer(0.1f).Timeout += InitializeUI; // Defer initialization
     }
 
@@ -75,6 +80,7 @@ public partial class LobbyUiManager : Node
 
         var connectButton = serverEntry.GetNode<Button>("connect");
         connectButton.Disabled = false;
+        connectButton.Pressed += () => _on_connect_btn_pressed(serverData);
 
         serverListContainer.AddChild(serverEntry);
     }
@@ -94,9 +100,15 @@ public partial class LobbyUiManager : Node
     }
 
     // Handle "connect" button click
-    private void _on_connect_btn_pressed()
+    private void _on_connect_btn_pressed(ServerData serverData)
     {
         serverListPanel.Visible = false;
         playerListPanel.Visible = true;
+        playerServerInfo.GetNode<Label>("server_name_label").Text =
+            $"Server: {serverData.server_name}";
+        playerServerInfo.GetNode<Label>("map_name_label").Text = $"Map: {serverData.map_name}";
+        playerServerInfo.GetNode<Label>("player_count_label").Text =
+            $"Players: {serverData.player_count}";
+        playerServerInfo.GetNode<Label>("ping_label").Text = $"Ping: {serverData.ping} ms";
     }
 }
