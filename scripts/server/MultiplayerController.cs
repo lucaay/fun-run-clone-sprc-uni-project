@@ -13,7 +13,7 @@ public partial class MultiplayerController : Control
     private ENetMultiplayerPeer _peer;
     private int _playerId;
 
-    public override void _Ready()
+    public override void _Ready() 
     {
         Multiplayer.PeerConnected += PlayerConnected;
         Multiplayer.PeerDisconnected += PlayerDisconnected;
