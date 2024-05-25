@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-public partial class MainMenuUiManager : Node
+public partial class MainMenuUiManager : Panel
 {
     [Export]
     private Button playBtn;
@@ -11,6 +11,15 @@ public partial class MainMenuUiManager : Node
 
     [Export]
     private Label errorLabel;
+
+    [Export]
+    private Panel MainMenuPanel;
+
+    [Export]
+    private VBoxContainer ServerListPanel;
+
+    [Export]
+    private Button backButton;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() { }
@@ -40,7 +49,11 @@ public partial class MainMenuUiManager : Node
         PlayerManager.Instance.CurrentPlayer = player;
 
         // Change the scene to the lobby
-        GetTree().ChangeSceneToFile("res://scenes/LobbyMenu.tscn");
+        MainMenuPanel.Visible = false;
+        ServerListPanel.Visible = true;
+        backButton.Visible = true;
+
+        
     }
 
     // Handle "Exit" button click (Connect to "pressed" signal in the editor)
