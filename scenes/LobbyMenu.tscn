@@ -1,12 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://bcst47i4vloyp"]
+[gd_scene load_steps=5 format=3 uid="uid://bcst47i4vloyp"]
 
+[ext_resource type="Script" path="res://scripts/NetworkManager.cs" id="1_4a2mv"]
 [ext_resource type="Script" path="res://scripts/LobbyUiManager.cs" id="1_334l3"]
 [ext_resource type="Texture2D" uid="uid://curo02hymabe8" path="res://assets/background_main_menu.png" id="2_soduk"]
-[ext_resource type="Script" path="res://scripts/server/MultiplayerController.cs" id="3_br0b6"]
+[ext_resource type="Script" path="res://scripts/MainMenuUiManager.cs" id="4_mgv7t"]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Control" type="Control" parent="." node_paths=PackedStringArray("serverListPanel", "playerListPanel", "playerServerInfo", "playerListContainer", "playerEntryTemplate", "serverListContainer", "serverEntryTemplate")]
+[node name="MultiplayerControlNode" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_4a2mv")
+isServer = true
+
+[node name="GameMenu" type="Control" parent="." node_paths=PackedStringArray("serverListPanel", "playerListPanel", "playerServerInfo", "playerListContainer", "playerEntryTemplate", "serverListContainer", "serverEntryTemplate", "backButton", "MainMenuPanel", "MultiplayerControlNode")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1153.0
@@ -19,22 +28,19 @@ playerListContainer = NodePath("PlayerListPanel/Panel/PlayerScrollContainer/Play
 playerEntryTemplate = NodePath("PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_container")
 serverListContainer = NodePath("ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer")
 serverEntryTemplate = NodePath("ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer/server_container")
+backButton = NodePath("Backbtn")
+MainMenuPanel = NodePath("MainMenuPanel")
+MultiplayerControlNode = NodePath("../MultiplayerControlNode")
 
-[node name="MultiplayerControlNode" type="Control" parent="Control"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("3_br0b6")
-
-[node name="TextureRect" type="TextureRect" parent="Control"]
+[node name="TextureRect" type="TextureRect" parent="GameMenu"]
 layout_mode = 0
 offset_right = 1153.0
 offset_bottom = 650.0
 texture = ExtResource("2_soduk")
 expand_mode = 2
 
-[node name="Backbtn" type="Button" parent="Control"]
+[node name="Backbtn" type="Button" parent="GameMenu"]
+visible = false
 layout_mode = 0
 offset_left = 23.0
 offset_top = 23.0
@@ -42,18 +48,19 @@ offset_right = 141.0
 offset_bottom = 55.0
 text = "Back"
 
-[node name="PlayerListPanel" type="VBoxContainer" parent="Control"]
+[node name="PlayerListPanel" type="VBoxContainer" parent="GameMenu"]
+visible = false
 layout_mode = 2
 offset_left = 167.0
 offset_top = 80.0
 offset_right = 1031.0
 offset_bottom = 567.0
 
-[node name="Panel" type="Panel" parent="Control/PlayerListPanel"]
+[node name="Panel" type="Panel" parent="GameMenu/PlayerListPanel"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PlayerScrollContainer" type="ScrollContainer" parent="Control/PlayerListPanel/Panel"]
+[node name="PlayerScrollContainer" type="ScrollContainer" parent="GameMenu/PlayerListPanel/Panel"]
 layout_mode = 0
 offset_right = 864.0
 offset_bottom = 487.0
@@ -61,59 +68,59 @@ size_flags_vertical = 3
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
-[node name="PlayerScrollVBoxContainer" type="VBoxContainer" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer"]
+[node name="PlayerScrollVBoxContainer" type="VBoxContainer" parent="GameMenu/PlayerListPanel/Panel/PlayerScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="player_server_container" type="HBoxContainer" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer"]
+[node name="player_server_container" type="HBoxContainer" parent="GameMenu/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer"]
 layout_mode = 2
 
-[node name="server_name_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_server_container"]
+[node name="server_name_label" type="Label" parent="GameMenu/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_server_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Server Name"
 horizontal_alignment = 1
 
-[node name="map_name_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_server_container"]
+[node name="map_name_label" type="Label" parent="GameMenu/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_server_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Map Name"
 horizontal_alignment = 1
 
-[node name="player_count_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_server_container"]
+[node name="player_count_label" type="Label" parent="GameMenu/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_server_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Players"
 horizontal_alignment = 1
 
-[node name="ping_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_server_container"]
+[node name="ping_label" type="Label" parent="GameMenu/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_server_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Ping"
 horizontal_alignment = 1
 
-[node name="player_container" type="HBoxContainer" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer"]
+[node name="player_container" type="HBoxContainer" parent="GameMenu/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer"]
 layout_mode = 2
 
-[node name="player_name_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_container"]
+[node name="player_name_label" type="Label" parent="GameMenu/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Player Name"
 horizontal_alignment = 1
 
-[node name="ready_status_label" type="Label" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_container"]
+[node name="ready_status_label" type="Label" parent="GameMenu/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Ready Status"
 horizontal_alignment = 1
 
-[node name="ready_btn" type="Button" parent="Control/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_container"]
+[node name="ready_btn" type="Button" parent="GameMenu/PlayerListPanel/Panel/PlayerScrollContainer/PlayerScrollVBoxContainer/player_container"]
 layout_mode = 2
 disabled = true
 text = "Ready"
 
-[node name="ServerListPanel" type="VBoxContainer" parent="Control"]
+[node name="ServerListPanel" type="VBoxContainer" parent="GameMenu"]
 visible = false
 layout_mode = 0
 offset_left = 167.0
@@ -121,15 +128,15 @@ offset_top = 80.0
 offset_right = 1031.0
 offset_bottom = 567.0
 
-[node name="ServerListHeader" type="HBoxContainer" parent="Control/ServerListPanel"]
+[node name="ServerListHeader" type="HBoxContainer" parent="GameMenu/ServerListPanel"]
 layout_mode = 2
 
-[node name="filter_input" type="LineEdit" parent="Control/ServerListPanel/ServerListHeader"]
+[node name="filter_input" type="LineEdit" parent="GameMenu/ServerListPanel/ServerListHeader"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Name of server"
 
-[node name="filter_category" type="OptionButton" parent="Control/ServerListPanel/ServerListHeader"]
+[node name="filter_category" type="OptionButton" parent="GameMenu/ServerListPanel/ServerListHeader"]
 layout_mode = 2
 item_count = 2
 popup/item_0/text = "Players"
@@ -137,15 +144,15 @@ popup/item_0/id = 0
 popup/item_1/text = "Ping"
 popup/item_1/id = 1
 
-[node name="sort_button" type="Button" parent="Control/ServerListPanel/ServerListHeader"]
+[node name="sort_button" type="Button" parent="GameMenu/ServerListPanel/ServerListHeader"]
 layout_mode = 2
 text = "Sort"
 
-[node name="Panel" type="Panel" parent="Control/ServerListPanel"]
+[node name="Panel" type="Panel" parent="GameMenu/ServerListPanel"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ServerScrollContainer" type="ScrollContainer" parent="Control/ServerListPanel/Panel"]
+[node name="ServerScrollContainer" type="ScrollContainer" parent="GameMenu/ServerListPanel/Panel"]
 layout_mode = 2
 offset_right = 864.0
 offset_bottom = 452.0
@@ -153,38 +160,101 @@ size_flags_vertical = 3
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
-[node name="ServerScrollVBoxContainer" type="VBoxContainer" parent="Control/ServerListPanel/Panel/ServerScrollContainer"]
+[node name="ServerScrollVBoxContainer" type="VBoxContainer" parent="GameMenu/ServerListPanel/Panel/ServerScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="server_container" type="HBoxContainer" parent="Control/ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer"]
+[node name="server_container" type="HBoxContainer" parent="GameMenu/ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer"]
 layout_mode = 2
 
-[node name="server_name_label" type="Label" parent="Control/ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer/server_container"]
+[node name="server_name_label" type="Label" parent="GameMenu/ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer/server_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Server Name"
 
-[node name="map_name_label" type="Label" parent="Control/ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer/server_container"]
+[node name="map_name_label" type="Label" parent="GameMenu/ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer/server_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Map Name"
 
-[node name="player_count_label" type="Label" parent="Control/ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer/server_container"]
+[node name="player_count_label" type="Label" parent="GameMenu/ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer/server_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Players"
 
-[node name="ping_label" type="Label" parent="Control/ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer/server_container"]
+[node name="ping_label" type="Label" parent="GameMenu/ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer/server_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Ping"
 
-[node name="connect" type="Button" parent="Control/ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer/server_container"]
+[node name="connect" type="Button" parent="GameMenu/ServerListPanel/Panel/ServerScrollContainer/ServerScrollVBoxContainer/server_container"]
 layout_mode = 2
 disabled = true
 text = "Connect
 "
 
-[connection signal="pressed" from="Control/Backbtn" to="Control" method="_on_back_btn_pressed"]
+[node name="MainMenuPanel" type="Panel" parent="GameMenu" node_paths=PackedStringArray("playBtn", "lineEdit", "errorLabel", "MainMenuPanel", "ServerListPanel", "backButton")]
+visible = false
+offset_left = 402.0
+offset_top = 227.0
+offset_right = 689.0
+offset_bottom = 384.0
+script = ExtResource("4_mgv7t")
+playBtn = NodePath("PlayBtn")
+lineEdit = NodePath("LineEdit")
+errorLabel = NodePath("error_label")
+MainMenuPanel = NodePath(".")
+ServerListPanel = NodePath("../ServerListPanel")
+backButton = NodePath("../Backbtn")
+
+[node name="ExitBtn" type="Button" parent="GameMenu/MainMenuPanel"]
+offset_left = 615.0
+offset_top = 366.0
+offset_right = 733.0
+offset_bottom = 398.0
+text = "Exit"
+
+[node name="PlayBtn" type="Button" parent="GameMenu/MainMenuPanel"]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 114.0
+offset_right = 268.0
+offset_bottom = 145.0
+text = "Play"
+
+[node name="LineEdit" type="LineEdit" parent="GameMenu/MainMenuPanel"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 62.0
+offset_right = 252.0
+offset_bottom = 93.0
+
+[node name="error_label" type="Label" parent="GameMenu/MainMenuPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 45.0
+offset_right = -51.0
+offset_bottom = -134.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameMenu/MainMenuPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 92.0
+offset_top = 20.0
+offset_right = -96.0
+offset_bottom = -114.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Player Name"
+
+[connection signal="pressed" from="GameMenu/Backbtn" to="GameMenu" method="_on_back_btn_pressed"]
+[connection signal="pressed" from="GameMenu/MainMenuPanel/ExitBtn" to="GameMenu/MainMenuPanel" method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="GameMenu/MainMenuPanel/PlayBtn" to="GameMenu/MainMenuPanel" method="_on_play_btn_pressed"]
+[connection signal="text_changed" from="GameMenu/MainMenuPanel/LineEdit" to="GameMenu/MainMenuPanel" method="_on_line_edit_text_changed"]

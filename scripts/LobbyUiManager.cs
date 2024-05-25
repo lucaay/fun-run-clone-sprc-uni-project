@@ -28,9 +28,57 @@ public partial class LobbyUiManager : Node
     private ServerList serverList;
     private Player localPlayer;
 
+    [Export]
+    private Button backButton;
+
+    [Export]
+    private Panel MainMenuPanel;
+
+    [Export]
+    private Control MultiplayerControlNode;
+
     // Ensure nodes are found after the scene is fully loaded
     public override void _Ready()
     {
+        // Check if MultiplayerControlNode is set
+        if (MultiplayerControlNode == null)
+        {
+            GD.PrintErr("MultiplayerControlNode is not assigned!");
+            return;
+        }
+
+        // Check if MultiplayerControlNode is a NetworkManager
+        if (MultiplayerControlNode is NetworkManager networkManager)
+        {
+            if (!networkManager.isServer)
+            {
+                GD.Print("Client is running");
+                MainMenuPanel.Visible = true;
+            }
+            else
+            {
+                GD.Print("Server is running");
+                // Add a panel to contain the label indicating server is running
+                var serverRunningPanel = new Panel
+                {
+                    Size = new Vector2(400, 100), // Adjust size as needed
+                    AnchorTop = 0.5f,
+                    AnchorRight = 0.5f,
+                    Modulate = new Color(1, 1, 1, 1f) // Semi-transparent
+                };
+
+                // Add label indicating server is running
+                var label = new Label { Text = "Server running...", Size = new Vector2(200, 50), };
+
+                serverRunningPanel.AddChild(label);
+                AddChild(serverRunningPanel);
+            }
+        }
+        else
+        {
+            GD.PrintErr("MultiplayerControlNode is not a NetworkManager!");
+        }
+
         if (PlayerManager.Instance.CurrentPlayer != null)
         {
             var player = PlayerManager.Instance.CurrentPlayer;
@@ -40,10 +88,6 @@ public partial class LobbyUiManager : Node
             playerListPanel.Visible = false; // Hide player list panel initially
             serverListPanel.Visible = true; // Show server list panel initially
             GetTree().CreateTimer(0.1f).Timeout += InitializeUI; // Defer initialization
-        }
-        else
-        {
-            GetTree().ChangeSceneToFile("res://scenes/MainMenu.tscn");
         }
     }
 
@@ -109,7 +153,9 @@ public partial class LobbyUiManager : Node
     {
         if (serverListPanel.Visible == true)
         {
-            GetTree().ChangeSceneToFile("res://scenes/MainMenu.tscn");
+            serverListPanel.Visible = false;
+            backButton.Visible = false;
+            MainMenuPanel.Visible = true;
         }
         else
         {
