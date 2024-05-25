@@ -10,15 +10,10 @@ config_version=5
 
 [application]
 
-config/name="FUN_RUN_SPRC_PROJECT"
-run/main_scene="res://scenes/LobbyMenu.tscn"
-config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+config/name="sprc-project"
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
-
-[autoload]
-
-PlayerManager="*res://scripts/PlayerManager.cs"
 
 [dotnet]
 
-project/assembly_name="FUN_RUN_SPRC_PROJECT"
+project/assembly_name="sprc-project"
