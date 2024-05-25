@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Net.Sockets;
 using Godot;
 
 public partial class MultiplayerController : Control
@@ -8,7 +9,7 @@ public partial class MultiplayerController : Control
     private int _port = 8910;
 
     [Export]
-    private string _ip = "127.0.0.1";
+    private string _ip = "localhost";
 
     private ENetMultiplayerPeer _peer;
     private int _playerId;
@@ -22,6 +23,45 @@ public partial class MultiplayerController : Control
 
         // Connect to the "join_server" signal in the parent node (LobbyUiManager)
         GetParent().Connect("join_server", new Callable(this, "OnJoinServer"));
+
+        UdpClient = new UdpClient();
+        udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, DiscoveryPort));
+
+        GetTree().CreateTimer(5.0f).Timeout += DiscoverServers; // Discover every 5 seconds
+        DiscoverServers(); // Initial discovery
+    }
+
+    private async void DiscoverServers()
+    {
+        serverList.Servers.Clear(); // Clear the list for new discoveries
+
+        var broadcastEndpoint = new IPEndPoint(IPAddress.Broadcast, DiscoveryPort);
+        var requestData = System.Text.Encoding.ASCII.GetBytes("ServerDiscoveryRequest");
+        await udpClient.SendAsync(requestData, requestData.Length, broadcastEndpoint);
+
+        var receiveTask = udpClient.ReceiveAsync();
+        while (!receiveTask.IsCompleted)
+        {
+            await Task.Delay(100); // Add a small delay to prevent high CPU usage
+        }
+
+        var result = await receiveTask;
+        var responseData = System.Text.Encoding.ASCII.GetString(result.Buffer);
+
+        // Process responseData (e.g., split it into server details)
+        var serverDetails = responseData.Split(',');
+        var newServer = new ServerData(
+            serverDetails[0], // Server name
+            serverDetails[1], // Map name
+            int.Parse(serverDetails[2]), // Player count
+            int.Parse(serverDetails[3]), // Ping
+            result.RemoteEndPoint.Address.ToString(), // IP Address
+            int.Parse(serverDetails[4]) // Port
+        );
+
+        serverList.AddServer(newServer);
+
+        PopulateServerList();
     }
 
     private void ConnectionFailed()
@@ -52,10 +92,10 @@ public partial class MultiplayerController : Control
         GDPrintC.Print(_playerId, $"Player <${id}> disconnected.");
     }
 
-    public void ConnectToServer()
+    public void ConnectToServer(string ipAddress, int port)
     {
         _peer = new ENetMultiplayerPeer();
-        var status = _peer.CreateClient(_ip, _port);
+        var status = _peer.CreateClient(ipAddress, port);
         if (status != Error.Ok)
         {
             GDPrintC.PrintErr("Creating client FAILED.");
@@ -69,7 +109,7 @@ public partial class MultiplayerController : Control
     // New method to handle the "join_server" signal
     public void OnJoinServer(ServerData serverData)
     {
-        GDPrintC.Print("Received server data: " + serverData.server_name); // Confirm data is received
-        ConnectToServer();
+        GDPrintC.Print("Connecting to " + serverData.ipAddress + ":" + serverData.port);
+        ConnectToServer(serverData.ipAddress, serverData.port);
     }
 }

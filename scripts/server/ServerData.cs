@@ -8,6 +8,8 @@ public class ServerData
     public int player_count { get; set; }
 
     public int ping { get; set; }
+    public string ipAddress { get; set; }
+    public int port { get; set; }
 
     public List<Player> players { get; set; } // List to hold multiple players
 
