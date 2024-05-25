@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Server="*res://scripts/server/server.cs"
 PlayerManager="*res://scripts/PlayerManager.cs"
 
 [dotnet]

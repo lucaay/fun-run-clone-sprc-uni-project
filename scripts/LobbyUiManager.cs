@@ -28,10 +28,6 @@ public partial class LobbyUiManager : Node
     private ServerList serverList;
     private Player localPlayer;
 
-    
-    private UdpClient udpClient;
-    private const int DiscoveryPort = 8910;
-
     // Ensure nodes are found after the scene is fully loaded
     public override void _Ready()
     {
@@ -138,7 +134,6 @@ public partial class LobbyUiManager : Node
 
         // Update player list
         PopulatePlayerList(serverData.players);
-        GetNode<MultiplayerController>("MultiplayerControlNode").OnJoinServer(serverData);
     }
 
     public void PopulatePlayerList(List<Player> players)

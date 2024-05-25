@@ -10,11 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Server-files"
-run/main_scene="res://scenes/multiplayer.tscn"
-config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+config/name="server"
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="Server-files"
+project/assembly_name="server"
