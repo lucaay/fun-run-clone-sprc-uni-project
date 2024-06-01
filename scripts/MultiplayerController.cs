@@ -78,6 +78,16 @@ public partial class MultiplayerController : Control
     //startgmae
     public void _on_start_game_button_down()
     {
+        Rpc("startGame");
+    }
+
+    [Rpc(
+        MultiplayerApi.RpcMode.AnyPeer,
+        CallLocal = true,
+        TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
+    )]
+    public void startGame()
+    {
         var scene = ResourceLoader
             .Load<PackedScene>("res://scenes/TestScene.tscn")
             .Instantiate<Node2D>();
