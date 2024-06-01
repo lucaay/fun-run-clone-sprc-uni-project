@@ -32,6 +32,12 @@ public partial class MultiplayerController : Control
     private void ConnectedToServer()
     {
         GD.Print("Connected to server");
+        RpcId(
+            1,
+            "sendPlayerInformaion",
+            GetNode<LineEdit>("LineEdit").Text,
+            Multiplayer.GetUniqueId()
+        );
     }
 
     //runs when a player disconnects from the server and it only runs on all peers
@@ -64,6 +70,7 @@ public partial class MultiplayerController : Control
 
         Multiplayer.MultiplayerPeer = peer;
         GD.Print("Waiting for players...");
+        sendPlayerInformaion(GetNode<LineEdit>("LineEdit").Text, 1);
     }
 
     public void _on_join_button_down()
@@ -88,10 +95,32 @@ public partial class MultiplayerController : Control
     )]
     public void startGame()
     {
+        foreach (var player in GameManager.Players)
+        {
+            GD.Print(player.Name + " is playing with id: " + player.Id);
+        }
         var scene = ResourceLoader
             .Load<PackedScene>("res://scenes/TestScene.tscn")
             .Instantiate<Node2D>();
         GetTree().Root.AddChild(scene);
         this.Hide();
+    }
+
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
+    private void sendPlayerInformaion(string name, int id)
+    {
+        PlayerInfo playerInfo = new PlayerInfo() { Name = name, Id = id };
+        if (!GameManager.Players.Contains(playerInfo))
+        {
+            GameManager.Players.Add(playerInfo);
+        }
+
+        if (Multiplayer.IsServer())
+        {
+            foreach (var player in GameManager.Players)
+            {
+                Rpc("sendPlayerInformaion", name, id);
+            }
+        }
     }
 }
