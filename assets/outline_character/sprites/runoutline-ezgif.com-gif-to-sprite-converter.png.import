@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctmfh0ug3fhqr"
-path="res://.godot/imported/landing.png-27b198ac2795a5fd3a79157287bc105d.ctex"
+uid="uid://bvmna83a83tbh"
+path="res://.godot/imported/runoutline-ezgif.com-gif-to-sprite-converter.png-db816d0897179e38a9c314ad8a828930.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/character/sprites/landing.png"
-dest_files=["res://.godot/imported/landing.png-27b198ac2795a5fd3a79157287bc105d.ctex"]
+source_file="res://assets/outline_character/sprites/runoutline-ezgif.com-gif-to-sprite-converter.png"
+dest_files=["res://.godot/imported/runoutline-ezgif.com-gif-to-sprite-converter.png-db816d0897179e38a9c314ad8a828930.ctex"]
 
 [params]
 
