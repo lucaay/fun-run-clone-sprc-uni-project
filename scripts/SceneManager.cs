@@ -14,6 +14,7 @@ public partial class SceneManager : Node2D
         {
             Player playerInstance = playerScene.Instantiate<Player>();
             playerInstance.Name = player.Id.ToString();
+            playerInstance.SetUpPlayer(player.Name);
             AddChild(playerInstance);
             foreach (Node2D spawnPoint in GetTree().GetNodesInGroup("PlayerSpawnPoints"))
             {

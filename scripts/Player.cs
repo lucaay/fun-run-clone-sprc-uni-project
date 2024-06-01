@@ -48,4 +48,9 @@ public partial class Player : CharacterBody2D
             MoveAndSlide();
         }
     }
+
+    public void SetUpPlayer(string name)
+    {
+        GetNode<Label>("Label").Text = name;
+    }
 }
