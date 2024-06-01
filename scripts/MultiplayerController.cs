@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Godot;
 
 public partial class MultiplayerController : Control
@@ -45,6 +46,15 @@ public partial class MultiplayerController : Control
     private void PeerDisconnected(long id)
     {
         GD.Print("Player " + id.ToString() + " disconnected");
+        GameManager.Players.Remove(GameManager.Players.First(x => x.Id == id));
+        var players = GetTree().GetNodesInGroup("Player");
+        foreach (var p in players)
+        {
+            if (p.Name == id.ToString())
+            {
+                p.QueueFree();
+            }
+        }
     }
 
     //runs when a player connects to the server and it only runs on all peers
