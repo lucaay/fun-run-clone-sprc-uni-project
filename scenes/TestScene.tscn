@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bj46oje1ndv01"]
+[gd_scene load_steps=12 format=3 uid="uid://bj46oje1ndv01"]
 
 [ext_resource type="Texture2D" uid="uid://5jwamtmgx7f3" path="res://assets/jg_tileset/jungle tileset.png" id="1_7j1hh"]
+[ext_resource type="Script" path="res://scripts/SceneManager.cs" id="1_md513"]
 [ext_resource type="Texture2D" uid="uid://cis3ubpwfvqwo" path="res://assets/parallax_background/plx-1.png" id="1_rjhql"]
 [ext_resource type="PackedScene" uid="uid://rr3jnn82kyp0" path="res://player.tscn" id="2_0c16m"]
 [ext_resource type="Texture2D" uid="uid://btdfyredw6apn" path="res://assets/parallax_background/plx-2.png" id="2_sh6by"]
@@ -356,6 +357,8 @@ sources/1 = SubResource("TileSetAtlasSource_sjnoo")
 size = Vector2(1438, 32)
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_md513")
+playerScene = ExtResource("2_0c16m")
 
 [node name="Plx-1" type="Sprite2D" parent="."]
 position = Vector2(575, 325)
@@ -393,5 +396,10 @@ layer_0/tile_data = PackedInt32Array(2031618, 65537, 14, 2097154, 65537, 15, 203
 position = Vector2(592, 512)
 shape = SubResource("RectangleShape2D_sxkx0")
 
-[node name="Player" parent="." instance=ExtResource("2_0c16m")]
-position = Vector2(55, 488)
+[node name="PlayerSpawnPoints" type="Node2D" parent="."]
+
+[node name="0" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+position = Vector2(44, 431)
+
+[node name="1" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+position = Vector2(116, 433)
