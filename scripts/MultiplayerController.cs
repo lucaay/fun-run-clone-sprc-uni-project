@@ -76,5 +76,12 @@ public partial class MultiplayerController : Control
     }
 
     //startgmae
-    public void _on_start_game_button_down() { }
+    public void _on_start_game_button_down()
+    {
+        var scene = ResourceLoader
+            .Load<PackedScene>("res://scenes/TestScene.tscn")
+            .Instantiate<Node2D>();
+        GetTree().Root.AddChild(scene);
+        this.Hide();
+    }
 }
