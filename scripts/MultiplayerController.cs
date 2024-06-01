@@ -21,6 +21,10 @@ public partial class MultiplayerController : Control
         Multiplayer.PeerDisconnected += PeerDisconnected;
         Multiplayer.ConnectedToServer += ConnectedToServer;
         Multiplayer.ConnectionFailed += ConnectionFailed;
+        if (OS.GetCmdlineArgs().Contains("--server"))
+        {
+            hostGame();
+        }
     }
 
     //runs when the connection to the server fails and it only runs on the client
@@ -67,7 +71,7 @@ public partial class MultiplayerController : Control
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta) { }
 
-    public void _on_host_button_down()
+    private void hostGame()
     {
         peer = new ENetMultiplayerPeer();
         var error = peer.CreateServer(port, 2);
@@ -80,6 +84,11 @@ public partial class MultiplayerController : Control
 
         Multiplayer.MultiplayerPeer = peer;
         GD.Print("Waiting for players...");
+    }
+
+    public void _on_host_button_down()
+    {
+        hostGame();
         sendPlayerInformaion(GetNode<LineEdit>("LineEdit").Text, 1);
     }
 
