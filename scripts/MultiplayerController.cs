@@ -129,7 +129,8 @@ public partial class MultiplayerController : Control
     private void sendPlayerInformaion(string name, int id)
     {
         PlayerInfo playerInfo = new PlayerInfo() { Name = name, Id = id };
-        if (!GameManager.Players.Contains(playerInfo))
+        var fromList = GameManager.Players.FirstOrDefault(x => x.Id == id);
+        if (fromList == null)
         {
             GameManager.Players.Add(playerInfo);
         }
