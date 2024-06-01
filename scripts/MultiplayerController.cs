@@ -17,27 +17,27 @@ public partial class MultiplayerController : Control
     //runs when the connection to the server fails and it only runs on the client
     private void ConnectionFailed()
     {
-        throw new NotImplementedException();
+        GD.Print("Connection failed");
     }
 
     //runs when the connection to the server is established and it only runs on the client
     private void ConnectedToServer()
     {
-        throw new NotImplementedException();
+        GD.Print("Connected to server");
     }
 
     //runs when a player disconnects from the server and it only runs on all peers
     // id of the player that disconnected
     private void PeerDisconnected(long id)
     {
-        throw new NotImplementedException();
+        GD.Print("Player " + id.ToString() + " disconnected");
     }
 
     //runs when a player connects to the server and it only runs on all peers
     // id of the player that connected
     private void PeerConnected(long id)
     {
-        throw new NotImplementedException();
+        GD.Print("Player " + id.ToString() + " connected");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
