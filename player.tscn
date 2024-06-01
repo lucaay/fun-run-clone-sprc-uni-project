@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://rr3jnn82kyp0"]
+[gd_scene load_steps=14 format=3 uid="uid://rr3jnn82kyp0"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_5v13j"]
 [ext_resource type="Texture2D" uid="uid://bvmna83a83tbh" path="res://assets/outline_character/sprites/runoutline-ezgif.com-gif-to-sprite-converter.png" id="2_4mwg6"]
@@ -70,6 +70,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_i87ua"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_5v13j")
 
@@ -83,3 +88,6 @@ texture_filter = 1
 position = Vector2(0, -30)
 scale = Vector2(1.77174, 1.77174)
 sprite_frames = SubResource("SpriteFrames_522ri")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_i87ua")
