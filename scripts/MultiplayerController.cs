@@ -3,6 +3,14 @@ using Godot;
 
 public partial class MultiplayerController : Control
 {
+    [Export]
+    private int port = 8910;
+
+    [Export]
+    private string address = "127.0.0.1";
+
+    private ENetMultiplayerPeer peer;
+
     public int DisconnectedFromServer { get; private set; }
 
     // Called when the node enters the scene tree for the first time.
@@ -43,9 +51,29 @@ public partial class MultiplayerController : Control
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta) { }
 
-    public void _on_host_button_down() { }
+    public void _on_host_button_down()
+    {
+        peer = new ENetMultiplayerPeer();
+        var error = peer.CreateServer(port, 2);
+        if (error != Error.Ok)
+        {
+            GD.Print("Error cannot host: " + error.ToString());
+            return;
+        }
+        peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
 
-    public void _on_join_button_down() { }
+        Multiplayer.MultiplayerPeer = peer;
+        GD.Print("Waiting for players...");
+    }
+
+    public void _on_join_button_down()
+    {
+        peer = new ENetMultiplayerPeer();
+        peer.CreateClient(address, port);
+        peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
+        Multiplayer.MultiplayerPeer = peer;
+        GD.Print("Connecting to server...");
+    }
 
     //startgmae
     public void _on_start_game_button_down() { }
