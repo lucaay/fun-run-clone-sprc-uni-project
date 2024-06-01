@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bvmna83a83tbh" path="res://assets/outline_character/sprites/runoutline-ezgif.com-gif-to-sprite-converter.png" id="2_4mwg6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xegpf"]
-size = Vector2(23.1811, 34.0472)
+size = Vector2(14.4882, 21.7323)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_63hsk"]
 atlas = ExtResource("2_4mwg6")
@@ -74,12 +74,12 @@ animations = [{
 script = ExtResource("1_5v13j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -47)
+position = Vector2(0, -30)
 scale = Vector2(2.76087, 2.76087)
 shape = SubResource("RectangleShape2D_xegpf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -47)
-scale = Vector2(2.76087, 2.76087)
+position = Vector2(0, -30)
+scale = Vector2(1.77174, 1.77174)
 sprite_frames = SubResource("SpriteFrames_522ri")
