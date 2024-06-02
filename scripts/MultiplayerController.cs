@@ -13,6 +13,7 @@ public partial class MultiplayerController : Control
     private ENetMultiplayerPeer peer;
 
     public int DisconnectedFromServer { get; private set; }
+    private int playersReady = 0;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -99,6 +100,8 @@ public partial class MultiplayerController : Control
         peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
         Multiplayer.MultiplayerPeer = peer;
         GD.Print("Connecting to server...");
+        GetNode<Button>("Join").Disabled = true;
+        GetNode<Button>("Join").Text = "Connected to server";
     }
 
     //startgmae
@@ -113,6 +116,22 @@ public partial class MultiplayerController : Control
         TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
     )]
     public void startGame()
+    {
+        playersReady++;
+        if (playersReady == 2)
+        {
+            Rpc("allPlayersReady"); // Notify all clients to proceed
+            playersReady = 0; // Reset the counter for the next game session
+        }
+        else
+        {
+            GetNode<Button>("StartGame").Text = "Waiting for another player...";
+            GetNode<Button>("StartGame").Disabled = true;
+        }
+    }
+
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
+    public void allPlayersReady() // New RPC
     {
         foreach (var player in GameManager.Players)
         {
