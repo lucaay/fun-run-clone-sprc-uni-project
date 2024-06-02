@@ -59,4 +59,10 @@ public partial class Player : CharacterBody2D
     {
         GetNode<Label>("Label").Text = name;
     }
+
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
+    public void SetCamera()
+    {
+        var camera = GetNode<Camera2D>("Camera");
+    }
 }
