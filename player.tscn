@@ -89,7 +89,7 @@ texture_filter = 1
 position = Vector2(0, -30)
 scale = Vector2(1.77174, 1.77174)
 sprite_frames = SubResource("SpriteFrames_522ri")
-frame_progress = 0.945169
+frame_progress = 0.711421
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_i87ua")
