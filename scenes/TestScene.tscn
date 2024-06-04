@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bj46oje1ndv01"]
+[gd_scene load_steps=62 format=3 uid="uid://bj46oje1ndv01"]
 
 [ext_resource type="Texture2D" uid="uid://5jwamtmgx7f3" path="res://assets/jg_tileset/jungle tileset.png" id="1_7j1hh"]
 [ext_resource type="Script" path="res://scripts/SceneManager.cs" id="1_md513"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cnus5krguphhv" path="res://assets/parallax_background/plx-4.png" id="4_iul34"]
 [ext_resource type="Texture2D" uid="uid://du1qhaxfomomv" path="res://assets/parallax_background/plx-5.png" id="5_ub4io"]
 [ext_resource type="PackedScene" uid="uid://cbr17m53rya1c" path="res://power-up.tscn" id="9_5kl6o"]
+[ext_resource type="PackedScene" uid="uid://blyj2ahrjjas2" path="res://FinishLine.tscn" id="10_xvy8y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sjnoo"]
 texture = ExtResource("1_7j1hh")
@@ -1615,3 +1616,6 @@ position = Vector2(4015, 479)
 
 [node name="PowerUp4" parent="." instance=ExtResource("9_5kl6o")]
 position = Vector2(7069, 397)
+
+[node name="FinishLine" parent="." instance=ExtResource("10_xvy8y")]
+position = Vector2(9226, 539)

@@ -7,9 +7,6 @@
 size = Vector2(32, 32)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wlli6"]
-properties/0/path = NodePath(".:freezeEffect")
-properties/0/spawn = true
-properties/0/replication_mode = 1
 
 [node name="PowerUp" type="Area2D"]
 collision_layer = 7
