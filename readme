@@ -9,9 +9,9 @@ Steps to run the project:
 Steps to run the game:
 
 1. Clone the repository
-2. Start the server by running the server.exe file
-3. Start the client by running the client.exe file
-4. Join a server from the list
+2. Start the server by running the Start_Server.bat file inside the server folder
+3. Start the client from Godot Editor with 2 instances.
+4. Enter a player name and join
 5. Enjoy playing the game
 
 Dunarea de Jos University of Galati
