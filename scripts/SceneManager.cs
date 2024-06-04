@@ -1,4 +1,3 @@
-using System;
 using Godot;
 
 public partial class SceneManager : Node2D
@@ -6,16 +5,21 @@ public partial class SceneManager : Node2D
     [Export]
     private PackedScene playerScene;
 
-    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        int playerCount = GameManager.Players.Count;
         int index = 0;
-        foreach (var player in GameManager.Players)
+
+        for (int i = 0; i < playerCount; i++)
         {
+            var player = GameManager.Players[i];
+
             Player playerInstance = playerScene.Instantiate<Player>();
             playerInstance.Name = player.Id.ToString();
             playerInstance.SetUpPlayer(player.Name);
             AddChild(playerInstance);
+
+            // Position player using spawn points
             foreach (Node2D spawnPoint in GetTree().GetNodesInGroup("PlayerSpawnPoints"))
             {
                 if (int.Parse(spawnPoint.Name) == index)
@@ -26,7 +30,4 @@ public partial class SceneManager : Node2D
             index++;
         }
     }
-
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta) { }
 }

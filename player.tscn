@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_5v13j"]
 [ext_resource type="Texture2D" uid="uid://bvmna83a83tbh" path="res://assets/outline_character/sprites/runoutline-ezgif.com-gif-to-sprite-converter.png" id="2_4mwg6"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xegpf"]
-size = Vector2(14.4882, 21.7323)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ykan1"]
+radius = 7.24409
+height = 21.7323
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_63hsk"]
 atlas = ExtResource("2_4mwg6")
@@ -67,7 +68,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 24.0
 }]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_i87ua"]
@@ -76,18 +77,20 @@ properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 0
 script = ExtResource("1_5v13j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -30)
+position = Vector2(0, -32)
 scale = Vector2(2.76087, 2.76087)
-shape = SubResource("RectangleShape2D_xegpf")
+shape = SubResource("CapsuleShape2D_ykan1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, -30)
 scale = Vector2(1.77174, 1.77174)
 sprite_frames = SubResource("SpriteFrames_522ri")
+frame_progress = 0.753371
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_i87ua")
@@ -99,3 +102,5 @@ offset_right = 20.0
 offset_bottom = -60.0
 text = "test"
 horizontal_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
