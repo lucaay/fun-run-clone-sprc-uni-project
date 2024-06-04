@@ -19,14 +19,6 @@ public partial class SceneManager : Node2D
             playerInstance.SetUpPlayer(player.Name);
             AddChild(playerInstance);
 
-            // Camera setup for each player
-            Camera2D camera = new Camera2D();
-            camera.Name = "Camera";
-            playerInstance.AddChild(camera);
-
-            // Ensure the camera is current for the correct player
-            playerInstance.SetCamera(); // Call the RPC method to set the camera
-
             // Position player using spawn points
             foreach (Node2D spawnPoint in GetTree().GetNodesInGroup("PlayerSpawnPoints"))
             {

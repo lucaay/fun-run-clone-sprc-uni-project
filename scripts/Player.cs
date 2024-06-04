@@ -7,12 +7,22 @@ public partial class Player : CharacterBody2D
     public const float JumpVelocity = -400.0f;
 
     private AnimatedSprite2D _animatedSprite;
+    private Camera2D _camera;
 
     // Get the gravity from the project settings to be synced with RigidBody nodes.
     public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
     public override void _Ready()
     {
+        // Get the Camera2D node
+        _camera = GetNode<Camera2D>("Camera2D");
+
+        // Ensure the camera is active only for this instance
+        if (Multiplayer.GetUniqueId() == int.Parse(Name))
+        {
+            _camera?.MakeCurrent();
+        }
+
         GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer")
             .SetMultiplayerAuthority(int.Parse(Name));
 
@@ -58,11 +68,5 @@ public partial class Player : CharacterBody2D
     public void SetUpPlayer(string name)
     {
         GetNode<Label>("Label").Text = name;
-    }
-
-    [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
-    public void SetCamera()
-    {
-        var camera = GetNode<Camera2D>("Camera");
     }
 }
