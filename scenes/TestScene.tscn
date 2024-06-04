@@ -362,7 +362,7 @@ b = Vector2(247.25, -14.75)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_q06dg"]
 a = Vector2(680.25, 111.25)
-b = Vector2(808.25, -13.75)
+b = Vector2(809.25, -14.75)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_f5y03"]
 a = Vector2(1513.25, -77.75)
