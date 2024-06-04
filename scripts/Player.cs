@@ -3,7 +3,7 @@ using Godot;
 
 public partial class Player : CharacterBody2D
 {
-    public const float Speed = 300.0f;
+    public float Speed = 300.0f;
     public const float JumpVelocity = -400.0f;
 
     private AnimatedSprite2D _animatedSprite;
@@ -40,28 +40,37 @@ public partial class Player : CharacterBody2D
             == Multiplayer.GetUniqueId()
         )
         {
-            Vector2 velocity = Velocity;
-
-            // Continuous rightward movement
-            velocity.X = Speed; // Always move to the right
-
-            // Gravity
-            if (!IsOnFloor())
+            if (!GameManager.GameOver) // Check if the game is not over
             {
-                velocity.Y += gravity * (float)delta;
-            }
+                Vector2 velocity = Velocity;
 
-            // Jump (using Spacebar)
-            if (Input.IsActionJustPressed("ui_accept")) // "ui_accept" is usually mapped to Spacebar
-            {
-                if (IsOnFloor())
+                // Continuous rightward movement
+                velocity.X = Speed; // Always move to the right
+
+                // Gravity
+                if (!IsOnFloor())
                 {
-                    velocity.Y = JumpVelocity;
+                    velocity.Y += gravity * (float)delta;
                 }
-            }
 
-            Velocity = velocity;
-            MoveAndSlide();
+                // Jump (using Spacebar)
+                if (Input.IsActionJustPressed("ui_accept")) // "ui_accept" is usually mapped to Spacebar
+                {
+                    if (IsOnFloor())
+                    {
+                        velocity.Y = JumpVelocity;
+                    }
+                }
+
+                Velocity = velocity;
+                MoveAndSlide();
+            }
+            else // Game is over, stop movement
+            {
+                // Set player's speed to 0 to stop movement
+                Speed = 0;
+                _animatedSprite.Play("idle");
+            }
         }
     }
 

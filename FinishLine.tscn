@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://blyj2ahrjjas2"]
+
+[ext_resource type="Script" path="res://scripts/FinishLine.cs" id="1_0j224"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wk2yh"]
+size = Vector2(20, 216)
+
+[sub_resource type="Gradient" id="Gradient_k84ql"]
+offsets = PackedFloat32Array(0.022082, 0.996845)
+colors = PackedColorArray(0, 0.913725, 0.913725, 1, 0.913725, 0, 0.913725, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lym82"]
+gradient = SubResource("Gradient_k84ql")
+
+[node name="FinishLine" type="Area2D"]
+collision_layer = 7
+collision_mask = 7
+script = ExtResource("1_0j224")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -108)
+shape = SubResource("RectangleShape2D_wk2yh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.98023e-07, -108.25)
+scale = Vector2(0.078125, 217.5)
+texture = SubResource("GradientTexture1D_lym82")

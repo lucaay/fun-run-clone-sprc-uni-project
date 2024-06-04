@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bj46oje1ndv01"]
+[gd_scene load_steps=62 format=3 uid="uid://bj46oje1ndv01"]
 
 [ext_resource type="Texture2D" uid="uid://5jwamtmgx7f3" path="res://assets/jg_tileset/jungle tileset.png" id="1_7j1hh"]
 [ext_resource type="Script" path="res://scripts/SceneManager.cs" id="1_md513"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://bblrautvt38vl" path="res://assets/parallax_background/plx-3.png" id="3_c4ift"]
 [ext_resource type="Texture2D" uid="uid://cnus5krguphhv" path="res://assets/parallax_background/plx-4.png" id="4_iul34"]
 [ext_resource type="Texture2D" uid="uid://du1qhaxfomomv" path="res://assets/parallax_background/plx-5.png" id="5_ub4io"]
+[ext_resource type="PackedScene" uid="uid://cbr17m53rya1c" path="res://power-up.tscn" id="9_5kl6o"]
+[ext_resource type="PackedScene" uid="uid://blyj2ahrjjas2" path="res://FinishLine.tscn" id="10_xvy8y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sjnoo"]
 texture = ExtResource("1_7j1hh")
@@ -411,12 +413,12 @@ b = Vector2(577, -4)
 size = Vector2(31.125, 31)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_n2xwp"]
-a = Vector2(-28, 1)
+a = Vector2(-21, 13)
 b = Vector2(23, 50)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_gklr5"]
 a = Vector2(-84, 56)
-b = Vector2(-69, 38)
+b = Vector2(-63, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_50kvm"]
 size = Vector2(64, 30)
@@ -518,7 +520,7 @@ size = Vector2(80, 34)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3kwns"]
 size = Vector2(16, 16)
 
-[node name="Node2D" type="Node2D"]
+[node name="SceneManager" type="Node2D"]
 script = ExtResource("1_md513")
 playerScene = ExtResource("2_0c16m")
 
@@ -1602,3 +1604,18 @@ position = Vector2(44, 338)
 
 [node name="1" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
 position = Vector2(128, 335)
+
+[node name="PowerUp" parent="." instance=ExtResource("9_5kl6o")]
+position = Vector2(668, 385)
+
+[node name="PowerUp2" parent="." instance=ExtResource("9_5kl6o")]
+position = Vector2(1817, 224)
+
+[node name="PowerUp3" parent="." instance=ExtResource("9_5kl6o")]
+position = Vector2(4015, 479)
+
+[node name="PowerUp4" parent="." instance=ExtResource("9_5kl6o")]
+position = Vector2(7069, 397)
+
+[node name="FinishLine" parent="." instance=ExtResource("10_xvy8y")]
+position = Vector2(9226, 539)

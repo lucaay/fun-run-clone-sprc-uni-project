@@ -142,6 +142,8 @@ public partial class MultiplayerController : Control
             .Instantiate<Node2D>();
         GetTree().Root.AddChild(scene);
         this.Hide();
+        // Reset game over flag
+        GameManager.GameOver = false;
     }
 
     [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
