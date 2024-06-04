@@ -2,3 +2,4 @@
 .godot/
 server/dedicated/
 scripts/output.txt
+scripts/copy-scripts.bat
